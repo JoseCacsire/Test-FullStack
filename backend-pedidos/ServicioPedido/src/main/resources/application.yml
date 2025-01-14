@@ -1,0 +1,17 @@
+# Configuración de la base de datos MongoDB
+spring:
+  application:
+    name: producto-service
+  data:
+    mongodb:
+      uri: mongodb://jose:jose@localhost:27017/pedido?authSource=admin
+
+# Configuración del servidor
+server:
+  port: 8043
+
+# Configuración de logs
+logging:
+  level:
+    org.springframework: INFO
+    com.tuempresa: DEBUG

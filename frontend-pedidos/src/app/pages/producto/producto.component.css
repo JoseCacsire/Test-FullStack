@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.productos{
+  flex: 1 1 70%;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1200px) {
+  .productos{
+    flex: 1;
+    flex-wrap: wrap;
+  }
+  
+}
+
+.carrito{
+  flex: 1 1 30%;
+}
+
+
+
+
+.btn-carro{
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.bg-car{
+  background-color: white;
+}

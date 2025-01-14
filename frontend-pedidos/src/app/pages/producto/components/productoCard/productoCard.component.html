@@ -1,0 +1,31 @@
+<mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{producto.nombre}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+       {{producto.descripcion}}
+      </p>
+      <p>{{producto.precio|currency}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button *ngIf="!getCantidad(producto.id)" mat-button class="w-full border-1 border-round-3xl" (click)="agregarProducto(producto)">Agregar Producto</button>
+        <ng-container *ngIf="getCantidad(producto.id)===1">
+          <div class="border-1 border-round-3xl w-full flex align-items-center justify-content-around">
+            <button (click)="disminuirProducto(producto.id)" mat-button><mat-icon>delete</mat-icon></button>
+            <span>{{getCantidad(producto.id)}}</span>
+            <button mat-button (click)="agregarProducto(producto)"><mat-icon>add</mat-icon></button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="getCantidad(producto.id)>1">
+          <div class="border-1 border-round-3xl w-full flex align-items-center justify-content-around">
+            <button (click)="disminuirProducto(producto.id)" mat-button><mat-icon>remove</mat-icon></button>
+            <span>{{getCantidad(producto.id)}}</span>
+            <button mat-button (click)="agregarProducto(producto)"><mat-icon>add</mat-icon></button>
+          </div>
+        </ng-container>
+    </mat-card-actions>
+  </mat-card>
+  

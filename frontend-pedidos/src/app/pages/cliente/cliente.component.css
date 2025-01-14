@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  padding-inline: 30px;
+}
+
+.cliente{
+  cursor: pointer;
+}
+
+.selected{
+  background-color: cadetblue;
+}

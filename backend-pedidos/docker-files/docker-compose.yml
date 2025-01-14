@@ -1,0 +1,72 @@
+services:
+
+#  ms-cliente:
+#    image: ms-cliente:v1.0.0
+#    container_name: ms-cliente
+#    build:
+#      context: ../ServicioCliente
+#    ports:
+#      - 8083:8083
+#    environment:
+#      SPRING_R2DBC_URL: r2dbc:postgresql://prueba-postgres:5432/cliente
+#      SPRING_R2DBC_USERNAME: jose
+#      SPRING_R2DBC_PASSWORD: jose
+##    depends_on:
+##      - postgres
+#    networks:
+#      - jose
+
+  postgres:
+    image: postgres
+    container_name: prueba-postgres
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: jose
+      POSTGRES_PASSWORD: jose
+      POSTGRES_DB: producto
+    volumes:
+      - ./entry:/docker-entrypoint-initdb.d
+    networks:
+      - jose
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "jos1cacsire2@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "jose"
+    ports:
+      - 80:80
+    depends_on:
+      - postgres
+    networks:
+      - jose
+
+  mongo-service:
+    image: mongo
+    container_name: prueba-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: jose
+      MONGO_INITDB_ROOT_PASSWORD: jose
+      MONGO_INITDB_DATABASE: pedido
+    ports:
+      - 27017:27017
+    networks:
+      - jose
+
+  mongo-express:
+    image: mongo-express
+    container_name: prueba-mongo-express
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo-service
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: jose
+      ME_CONFIG_MONGODB_ADMINPASSWORD: jose
+      ME_CONFIG_MONGODB_URL: mongodb://jose:jose@mongo-service:27017
+    networks:
+      - jose
+networks:
+  jose:
+    name: jose-network

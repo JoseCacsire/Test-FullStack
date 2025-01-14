@@ -1,0 +1,11 @@
+<mat-toolbar class="w-full">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Desarrollado por Jose Cacsire</span>
+    <span class="example-spacer"></span>
+  
+    <p>{{!(name | async)?"Seleccione cliente": (name|async).nombre}}</p>
+    
+    
+</mat-toolbar>

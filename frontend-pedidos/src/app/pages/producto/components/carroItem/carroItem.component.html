@@ -1,0 +1,15 @@
+
+<div class="flex justify-content-evenly align-items-center">
+    <div class="img w-3">
+        <img [src]="producto.descripcion" [alt]="producto.nombre">
+    </div>
+    <div class="flex flex-column align-items-start">
+        <p class="text-xs mb-0">{{producto.nombre}}</p>
+        <p class="text-xs mb-0 font-medium">Cantidad: {{producto.cantidad}}</p>
+    </div>
+
+    <div class="flex flex-column justify-content-between align-items-center">
+        <p class="text-xs">Precio: {{producto.precio | currency}}</p>
+        <button mat-raised-button (click)="eliminarProducto(producto.id)" class="text-base">Quitar</button>
+    </div>
+</div>

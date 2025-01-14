@@ -1,0 +1,28 @@
+
+<h2 class="text-base">Seleccionar el cliente que comprará</h2>
+<div class="flex gap-5 justify-content-around">
+    <div class="flex  gap-5">
+        <section>
+            <ul class="pl-0 w-10rem">
+                <li (click)="seleccionar(cliente)" [ngClass]="{'selected':selected==cliente}" class="cliente border-solid border-1 p-1" *ngFor="let cliente of clientes">{{cliente.nombre}}</li>
+            </ul>
+        </section>
+        
+    </div>
+    <div class="w-25rem">
+        <app-cliente-form></app-cliente-form>
+    </div>
+</div>
+<div>
+    @if (!selected) {
+        <p>No selecciono cliente</p>
+    }@else {
+        <p>Cliente seleccionado: {{selected.nombre}} con correo {{selected.correo}}</p>
+    }
+</div>
+
+
+<hr>
+
+<h2 class="text-base">{{selected? "Ir a ver productos":"Debe seleccionar un cliente"}}</h2>
+<button [disabled]="!selected" mat-flat-button routerLink="/productos" >ver productos</button>

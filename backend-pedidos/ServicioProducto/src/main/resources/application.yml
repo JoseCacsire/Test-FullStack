@@ -1,0 +1,24 @@
+# Configuración de la base de datos PostgreSQL
+spring:
+  application:
+    name: producto-service
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5435/producto
+    username: jose
+    password: jose
+    generate-ddl: true
+    schema: classpath:schema.sql
+  sql:
+    init:
+      mode: always
+
+
+# Configuración del servidor
+server:
+  port: 8051
+
+# Configuración de logs
+logging:
+  level:
+    org.springframework: INFO
+    com.tuempresa: DEBUG

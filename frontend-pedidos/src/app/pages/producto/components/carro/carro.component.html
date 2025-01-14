@@ -1,0 +1,44 @@
+<section>
+    <div class="title flex justify-content-between align-items-center">
+        <div class="flex align-items-center gap-2">
+            <mat-icon class="mx-0">shopping_cart</mat-icon>
+            <h2 class="text-xl mb-0">Mi Carrito</h2>
+        </div>
+    </div>
+    <div class="flex flex-column justify-content-center align-items-center h-full" *ngIf="!carrito.length;else carro">
+        <mat-icon>shopping_cart_off</mat-icon>
+        <p>Tu carrito está vacío</p>
+    </div>
+    <ng-template #carro>
+        <mat-divider></mat-divider>
+        <div class="flex justify-content-between">
+            <h3 class="text-base mb-0"> Seleccionados ({{carrito.length}})</h3>
+            <div class="flex align-items-center gap-2">
+                <p class="text-xs mb-0">Vaciar Carrito</p>
+                <button mat-icon-button (click)="vaciarCarrito()" class="border-round-sm border-red background-none">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="flex flex-column overflow-y-scroll h-18rem">
+            <app-carro-item class="mb-3" [producto]="producto" *ngFor="let producto of carrito"></app-carro-item>
+            <hr>
+        </div>
+        <mat-divider class="my-3"></mat-divider>
+        <div class="precios flex flex-column">
+            <div class="flex justify-content-between pr-4">
+                <p>Subtotal</p>
+                <p class="align-items-end">{{total | currency}}</p>
+            </div>
+        
+            <div class="flex justify-content-between pr-4">
+                <p>Total</p>
+                <p>{{total| currency}}</p>
+            </div>
+        </div>
+        <div class="flex justify-content-center gap-3">
+            <button mat-button>Comprar</button>
+        </div>
+    </ng-template>
+</section>

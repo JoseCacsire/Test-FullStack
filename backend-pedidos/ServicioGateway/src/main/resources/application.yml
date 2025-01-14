@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+            - id: cliente-service
+              uri: http://localhost:8083
+              predicates:
+                - Path=/clientes/**
+            - id: producto-service
+              uri: http://localhost:8051
+              predicates:
+                - Path=/producto/**
+            - id: pedido-service
+              uri: http://localhost:8043
+              predicates:
+                - Path=/pedido/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "http://localhost:4200"
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowed-headers:
+              - "*"
+            allow-credentials: true
+#
+
+server:
+  port: 8082
+
+
+# Configuración para Eureka Client (opcional)
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
