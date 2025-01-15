@@ -1,1 +1,7 @@
-<p>order-dialog-delete works!</p>
+<mat-dialog-content class="dialog-content">
+    <span>¿Estás seguro de eliminar esta orden?</span>
+    <div  class="button-container flex justify-content-center">
+        <button mat-button color="warn" (click)="delete()">Sí</button>
+        <button mat-button (click)="close()">No</button>
+    </div>
+</mat-dialog-content>

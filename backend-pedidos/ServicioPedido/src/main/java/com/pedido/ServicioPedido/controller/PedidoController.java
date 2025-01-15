@@ -49,4 +49,12 @@ public class PedidoController {
                 .map(ResponseEntity::ok);
     }
 
+    @DeleteMapping("/{id}")
+    public Mono<ResponseEntity<Void>> eliminarPedido(@PathVariable String id) {
+        return pedidoService.eliminarPedido(id)
+                .then(Mono.just(ResponseEntity.noContent().build()));
+    }
+
+
+
 }

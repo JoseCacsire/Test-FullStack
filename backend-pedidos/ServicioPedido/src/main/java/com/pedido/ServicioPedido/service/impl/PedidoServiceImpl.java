@@ -43,7 +43,6 @@ public class PedidoServiceImpl implements PedidoService {
     @Transactional
     @Override
     public Mono<PedidoResponseDTO> crearPedido(PedidoDTO pedidoDTO) {
-        log.info("Creando pedido para cliente con ID: {}", pedidoDTO.getClienteId());
 
         return Mono.zip(
                 clienteService.obtenerClientePorId(pedidoDTO.getClienteId()),
@@ -69,6 +68,13 @@ public class PedidoServiceImpl implements PedidoService {
                 .flatMap(this::mapPedidoToDTO);
     }
 
+
+    @Override
+    public Mono<Void> eliminarPedido(String id) {
+        return pedidoRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ModelNotFoundException("Pedido no encontrado con id: " + id)))
+                .flatMap(pedidoRepository::delete);
+    }
 
     private Mono<PedidoResponseDTO> guardarPedidoYActualizarStock(PedidoDTO pedidoDTO, Pedido pedido, Cliente cliente) {
         return pedidoRepository.save(pedido)

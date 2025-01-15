@@ -9,6 +9,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MatTableModule } from '@angular/material/table';
     MatSidenavModule,
     MatListModule,
     MatCardModule,
+    MatDialogModule,
     MatSnackBarModule,
     MatInputModule,
     MatFormFieldModule,
