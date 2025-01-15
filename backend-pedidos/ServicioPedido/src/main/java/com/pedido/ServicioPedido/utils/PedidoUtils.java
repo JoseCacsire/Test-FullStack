@@ -1,16 +1,16 @@
 package com.pedido.ServicioPedido.utils;
 
 import com.pedido.ServicioPedido.dto.Producto;
-import com.pedido.ServicioPedido.dto.ProductoPedido;
+import com.pedido.ServicioPedido.dto.ProductoPedidoDTO;
 
 import java.util.List;
 
 public class PedidoUtils {
 
-    public static Double calcularTotal(List<Producto> productos, List<ProductoPedido> productosPedido) {
+    public static Double calcularTotal(List<Producto> productos, List<ProductoPedidoDTO> productosPedido) {
         return productos.stream()
                 .mapToDouble(producto -> {
-                    ProductoPedido productoPedido = productosPedido.stream()
+                    ProductoPedidoDTO productoPedido = productosPedido.stream()
                             .filter(pp -> pp.getProductoId().equals(producto.getId()))
                             .findFirst()
                             .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado en el pedido"));
@@ -18,4 +18,7 @@ public class PedidoUtils {
                 })
                 .sum();
     }
+
+
+
 }

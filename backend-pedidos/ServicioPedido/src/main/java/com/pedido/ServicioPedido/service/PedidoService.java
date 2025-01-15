@@ -1,14 +1,18 @@
 package com.pedido.ServicioPedido.service;
 
+import com.pedido.ServicioPedido.dto.EstadoRequestDTO;
 import com.pedido.ServicioPedido.dto.PedidoDTO;
-import com.pedido.ServicioPedido.model.Pedido;
+import com.pedido.ServicioPedido.dto.PedidoResponseDTO;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface PedidoService {
 
-    Mono<PedidoDTO> crearPedido(PedidoDTO pedido);
-    Mono<PedidoDTO> obtenerPedido(String id);
-    Flux<PedidoDTO> obtenerPedidos();
+    Mono<PedidoResponseDTO> crearPedido(PedidoDTO pedido);
+    Mono<PedidoResponseDTO> obtenerPedido(String id);
+    Flux<PedidoResponseDTO> obtenerPedidos();
 
+    @Transactional
+    Mono<PedidoResponseDTO> actualizarEstadoPedido(String id, EstadoRequestDTO nuevoEstado);
 }

@@ -1,0 +1,37 @@
+.product-item:hover .product-info {
+    color: #1a202c; /* Cambia el color del texto solo cuando el ratón pasa sobre el elemento */
+  }
+  
+  .product-title {
+    margin-bottom:  0rem !important; /* Ajusta este valor según sea necesario */
+  }
+  
+  .product-item {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    padding-top: 0rem !important; /* Ajusta este valor según sea necesario */
+    padding-bottom: 0.2rem !important; /* Ajusta este valor según sea necesario */
+  }
+  
+  .product-item:hover {
+    background-color: #e2e8f0; /* Cambia el color de fondo solo cuando el ratón pasa sobre el elemento */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añade una sombra suave */
+    outline: none; /* Elimina el borde de enfoque predeterminado */
+  }
+  
+  .product-info {
+    transition: color 0.3s ease;
+  }
+  
+  .order-info {
+    padding-bottom: 0.5rem !important; /* Ajusta este valor según sea necesario */
+  }
+  
+  .order-title {
+    margin-bottom: 0.5rem !important; /* Ajusta este valor según sea necesario */
+  }
+  
+  .product-item .product-info {
+    color: initial; /* Asegúrate de que el color vuelva al estado original al retirar el mouse */
+  }
+  

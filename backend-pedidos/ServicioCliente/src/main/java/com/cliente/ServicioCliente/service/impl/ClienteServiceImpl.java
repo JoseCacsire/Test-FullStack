@@ -23,7 +23,6 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     @Transactional(readOnly = true)
     public Flux<ClienteDTO> obtenerClientes() {
-        // Obtener todos los clientes de la base de datos
         return clienteRepository.findAll()
                 .map(this::convertirAClienteDTO);
     }
