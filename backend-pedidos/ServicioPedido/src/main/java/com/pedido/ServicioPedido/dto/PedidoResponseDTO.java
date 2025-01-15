@@ -1,13 +1,9 @@
-package com.pedido.ServicioPedido.model;
-
-import com.pedido.ServicioPedido.dto.ProductoPedidoDTO;
+package com.pedido.ServicioPedido.dto;
 import com.pedido.ServicioPedido.enums.EstadoOrden;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,18 +12,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection = "pedido")
-public class Pedido {
+public class PedidoResponseDTO {
 
-    @Id
     private String id;
-    private Long clienteId;
-    private List<ProductoPedidoDTO> productos;
-    private double total;
 
-    private EstadoOrden estado;
+    private String nombreCliente;
+
+    private List<ProductoPedidoDTO> productos;
 
     private LocalDateTime fechaCreacion;
 
+    private EstadoOrden estado;
 
-    }
+    private double total;
+
+
+
+}

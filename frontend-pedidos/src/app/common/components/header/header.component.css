@@ -5,3 +5,12 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.ver-pedidos {
+  margin-right: 40px;
+}
+
+.cliente {
+  margin-top: 20px;
+}
+

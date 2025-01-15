@@ -1,0 +1,15 @@
+<h2 class="order-title text-center font-bold text-2xl mb-4 shadow-2">Información del Pedido</h2>
+<div class="order-info p-4 border-round shadow-2 ">
+  <p><strong>Nombre del Cliente:</strong> {{ order.nombreCliente }}</p>
+  <p><strong>Fecha de Creación:</strong> {{ order.fechaCreacion | date: 'short' }}</p>
+  <p><strong>Total:</strong> {{ order.total | currency }}</p>
+</div>
+
+<h2 class="product-title font-bold text-2xl ml-3 mb-2">Productos</h2>
+<ul class="product-list p-0 m-0 ">
+  <li *ngFor="let producto of order.productos" class="product-item p-3 border-round shadow-2 mb-2 " tabindex="0">
+    <p class="product-info"><strong>Nombre del Producto:</strong> {{ producto.nombreProducto }}</p>
+    <p class="product-info"><strong>Precio:</strong> {{ producto.precio | currency }}</p>
+    <p class="product-info"><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+  </li>
+</ul>

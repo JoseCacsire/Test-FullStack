@@ -1,0 +1,41 @@
+table {
+    width: 100%;
+    table-layout: fixed; /* Asegura que las columnas tengan el mismo ancho */
+  }
+  
+  .mat-elevation-z8 {
+    overflow-x: auto; /* Permite scroll horizontal si es necesario */
+  }
+  
+  td, th {
+    width: auto; /* Deja que el ancho sea dinámico */
+    padding: 8px;
+    text-align: center; /* Centra el texto en las celdas */
+  }
+  
+  .mat-header-cell, .mat-cell {
+    flex: 1; /* Asegura que las columnas tengan la misma proporción */
+  }
+  
+  .product-image {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+  
+  .low-stock {
+    color: red;
+  }
+  
+  .processing {
+    color: red;
+    
+  }
+  
+  .sending {
+    color: orange;
+  }
+  
+  .delivered {
+    color: green;
+  }

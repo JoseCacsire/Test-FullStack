@@ -4,8 +4,11 @@
     </button>
     <span>Desarrollado por Jose Cacsire</span>
     <span class="example-spacer"></span>
-  
-    <p>{{!(name | async)?"Seleccione cliente": (name|async).nombre}}</p>
-    
-    
+    <div class="ver-pedidos">
+      <button   mat-flat-button routerLink="/pedidos" aria-label="Ver pedidos">
+        Ver pedidos
+      </button>
+    </div>
+    <p class="cliente">{{!(name | async)?"Seleccione cliente": (name|async).nombre}}</p>
+   
 </mat-toolbar>

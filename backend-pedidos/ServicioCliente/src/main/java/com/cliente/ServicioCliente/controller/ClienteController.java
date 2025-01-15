@@ -2,6 +2,7 @@ package com.cliente.ServicioCliente.controller;
 
 import com.cliente.ServicioCliente.dto.ClienteDTO;
 import com.cliente.ServicioCliente.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,12 +18,12 @@ public class ClienteController {
     }
 
     @GetMapping
-    public Flux<ClienteDTO> obtenerTodosLosClientes() {
+    public Flux<ClienteDTO> obtenerClientes() {
         return clienteService.obtenerClientes();
     }
 
     @PostMapping
-    public Mono<ClienteDTO> crearCliente(@RequestBody  ClienteDTO clienteDTO) {
+    public Mono<ClienteDTO> crearCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
         return clienteService.crearCliente(clienteDTO);
     }
 

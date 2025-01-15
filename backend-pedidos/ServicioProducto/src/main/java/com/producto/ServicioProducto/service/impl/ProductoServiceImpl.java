@@ -7,8 +7,11 @@ import com.producto.ServicioProducto.model.Producto;
 import com.producto.ServicioProducto.repository.ProductoRepository;
 import com.producto.ServicioProducto.service.ProductoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -96,13 +99,13 @@ public class ProductoServiceImpl implements ProductoService {
 
     private Mono<ProductoDTO> validarProducto(ProductoDTO dto) {
         if (dto.getPrecio() == null || dto.getPrecio().compareTo(BigDecimal.TEN) < 0) {
-            return Mono.error(new IllegalArgumentException("El precio debe ser al menos 10"));
+            return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST,"El precio debe ser al menos 10"));
         }
         if (dto.getNombre() == null || dto.getNombre().isBlank()) {
-            return Mono.error(new IllegalArgumentException("El nombre no puede estar vacío"));
+            return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST,"El nombre no puede estar vacío"));
         }
         if (dto.getDescripcion() == null || dto.getDescripcion().isBlank()) {
-            return Mono.error(new IllegalArgumentException("La descripción no puede estar vacía"));
+            return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST,"La descripción no puede estar vacía"));
         }
         return Mono.just(dto);
     }
