@@ -5,6 +5,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://jose:jose@localhost:27017/pedido?authSource=admin
+      auto-index-creation: true
 
 # Configuración del servidor
 server:

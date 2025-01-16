@@ -8,7 +8,6 @@ import com.producto.ServicioProducto.repository.ProductoRepository;
 import com.producto.ServicioProducto.service.ProductoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,15 +25,13 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional(readOnly = true)
     public Flux<ProductoDTO> obtenerProductos() {
-        return productoRepository.findAll().map(product-> {
-            return ProductoDTO.builder()
-                    .id(product.getId())
-                    .nombre(product.getNombre())
-                    .precio(product.getPrecio())
-                    .stock(product.getStock())
-                    .descripcion(product.getDescripcion())
-                    .build();
-        });
+        return productoRepository.findAll().map(product-> ProductoDTO.builder()
+                .id(product.getId())
+                .nombre(product.getNombre())
+                .precio(product.getPrecio())
+                .stock(product.getStock())
+                .descripcion(product.getDescripcion())
+                .build());
     }
 
     @Override

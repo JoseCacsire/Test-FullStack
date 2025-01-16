@@ -4,7 +4,7 @@ export class Order {
       public productos: { productoId: number; cantidad: number }[],
       public id?: number,
       public total?: number,
-      public creation_date?: Date,
+      public fechaCreacion?: Date,
       public estado?: string
     ) {}
   }

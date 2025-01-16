@@ -3,6 +3,8 @@ package com.pedido.ServicioPedido.service.impl;
 import com.pedido.ServicioPedido.clients.ClienteServiceWebClient;
 import com.pedido.ServicioPedido.clients.ProductoServiceWebClient;
 import com.pedido.ServicioPedido.dto.*;
+import com.pedido.ServicioPedido.enums.EstadoOrden;
+import com.pedido.ServicioPedido.exception.EstadoInvalidoException;
 import com.pedido.ServicioPedido.exception.ModelNotFoundException;
 import com.pedido.ServicioPedido.mapper.PedidoMapper;
 import com.pedido.ServicioPedido.model.Pedido;
@@ -30,6 +32,7 @@ public class PedidoServiceImpl implements PedidoService {
     @Transactional(readOnly = true)
     public Flux<PedidoResponseDTO> obtenerPedidos() {
         return pedidoRepository.findAll()
+                .doOnNext(pedido -> log.info("Pedido recibido: " + pedido.getId()))
                 .flatMap(this::mapPedidoToDTO);
     }
 
@@ -43,7 +46,6 @@ public class PedidoServiceImpl implements PedidoService {
     @Transactional
     @Override
     public Mono<PedidoResponseDTO> crearPedido(PedidoDTO pedidoDTO) {
-        log.info("Creando pedido para cliente con ID: {}", pedidoDTO.getClienteId());
 
         return Mono.zip(
                 clienteService.obtenerClientePorId(pedidoDTO.getClienteId()),
@@ -63,12 +65,28 @@ public class PedidoServiceImpl implements PedidoService {
         return pedidoRepository.findById(id)
                 .switchIfEmpty(Mono.error(new ModelNotFoundException("Pedido no encontrado con id : " + id)))
                 .flatMap(pedido -> {
-                    pedido.setEstado(nuevoEstado.getEstado());
-                    return pedidoRepository.save(pedido);
+                    if (pedido.getEstado().equals(nuevoEstado.getEstado())) {
+                        return Mono.just(pedido);
+                    }
+                    return validateUpdateEstadoPedido(pedido.getEstado(), nuevoEstado.getEstado())
+                            .flatMap(isValid -> {
+                                if (!isValid) {
+                                    return Mono.error(new EstadoInvalidoException("No se puede cambiar el estado de " + pedido.getEstado() + " a " + nuevoEstado.getEstado() + ". Transición de estado no válida."));
+                                }
+                                pedido.setEstado(nuevoEstado.getEstado());
+                                return pedidoRepository.save(pedido);
+                            });
                 })
                 .flatMap(this::mapPedidoToDTO);
     }
 
+
+    @Override
+    public Mono<Void> eliminarPedido(String id) {
+        return pedidoRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ModelNotFoundException("Pedido no encontrado con id: " + id)))
+                .flatMap(pedidoRepository::delete);
+    }
 
     private Mono<PedidoResponseDTO> guardarPedidoYActualizarStock(PedidoDTO pedidoDTO, Pedido pedido, Cliente cliente) {
         return pedidoRepository.save(pedido)
@@ -104,5 +122,11 @@ public class PedidoServiceImpl implements PedidoService {
                 .collectList();
     }
 
+    private Mono<Boolean> validateUpdateEstadoPedido(EstadoOrden initialState, EstadoOrden finalState) {
+        return Mono.just(
+                (initialState == EstadoOrden.PENDIENTE && (finalState == EstadoOrden.ENTREGADO || finalState == EstadoOrden.CANCELADO)) ||
+                        (initialState == EstadoOrden.CANCELADO && finalState == EstadoOrden.ENTREGADO)
+        );
+    }
 
 }

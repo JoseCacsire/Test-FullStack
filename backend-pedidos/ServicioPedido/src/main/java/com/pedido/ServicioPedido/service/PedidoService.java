@@ -12,6 +12,7 @@ public interface PedidoService {
     Mono<PedidoResponseDTO> crearPedido(PedidoDTO pedido);
     Mono<PedidoResponseDTO> obtenerPedido(String id);
     Flux<PedidoResponseDTO> obtenerPedidos();
+    Mono<Void> eliminarPedido(String id);
 
     @Transactional
     Mono<PedidoResponseDTO> actualizarEstadoPedido(String id, EstadoRequestDTO nuevoEstado);
