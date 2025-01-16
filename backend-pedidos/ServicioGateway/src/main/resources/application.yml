@@ -24,6 +24,7 @@ spring:
               - GET
               - POST
               - PUT
+              - PATCH
               - DELETE
             allowed-headers:
               - "*"

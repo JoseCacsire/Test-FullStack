@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { OrderDialogInfoComponent } from './order-dialog-info/order-dialog-info.component';
 import { OrderDialogDeleteComponent } from './order-dialog-delete/order-dialog-delete.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { switchMap } from 'rxjs';
+import { OrderEstado } from '../../model/orderEstado';
 
 @Component({
   selector: 'app-order-component',
@@ -22,6 +24,8 @@ export class OrderComponentComponent {
   dataSource: MatTableDataSource<Order>;
 
   orders: Order[];
+
+  orderEstado : OrderEstado;
 
   displayedColumns = [
     { def: 'id', hide: true },
@@ -83,6 +87,44 @@ export class OrderComponentComponent {
     this.dataSource.filter = e.target.value.trim().toLowerCase();
   }
 
-  changeState(order: Order){}
+
+  
+  changeState(order: Order) {
+
+    const stateMap = {
+      'pendiente': {
+        newState: 'cancelado',
+        message: 'ESTADO DEL PEDIDO : CANCELADO',
+      },
+      'cancelado': {
+        newState: 'entregado',
+        message: 'ESTADO DEL PEDIDO : ENTREGADO',
+      },
+    };
+
+    const stateInfo = stateMap[order.estado];
+
+    if (stateInfo) {
+
+      const OrderEstado = {
+        estado: stateInfo.newState,
+      };
+      
+      this.orderService
+        .patch(order.id, OrderEstado)
+        .pipe(switchMap(() => this.orderService.getOrders()))
+        .subscribe((data) => {
+          this.orderService.setOrderChange(data);
+          this.orderService.setMessageChange(stateInfo.message);
+        });
+    } 
+    else {
+      this.orderService.setMessageChange(
+        'PEDIDO YA ENTREGADO'
+      );
+    }
+  }
+
+   
 
 }

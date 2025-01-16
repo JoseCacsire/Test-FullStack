@@ -13,6 +13,8 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Comparator;
+
 @RestController
 @RequestMapping("/pedido")
 @Validated
@@ -26,9 +28,9 @@ public class PedidoController {
 
     @GetMapping
     public Flux<PedidoResponseDTO> obtenerPedidos() {
-        return pedidoService.obtenerPedidos();
+        return pedidoService.obtenerPedidos()
+                .sort(Comparator.comparing(PedidoResponseDTO::getFechaCreacion).reversed());
     }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<PedidoResponseDTO> crearPedido( @RequestBody @Valid PedidoDTO pedido) {

@@ -45,6 +45,16 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(EstadoInvalidoException.class)
+    public ResponseEntity<CustomErrorRecord> handleEstadoInvalidoException(EstadoInvalidoException ex, ServerWebExchange exchange) {
+        CustomErrorRecord errorResponse = new CustomErrorRecord(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                exchange.getRequest().getURI().toString()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
 
     @Override
     protected Mono<ResponseEntity<Object>> handleWebExchangeBindException(WebExchangeBindException ex, HttpHeaders headers, HttpStatusCode status, ServerWebExchange exchange) {

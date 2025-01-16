@@ -1,5 +1,7 @@
 package com.pedido.ServicioPedido.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.pedido.ServicioPedido.exception.ModelNotFoundException;
 
 public enum EstadoOrden {
@@ -14,10 +16,12 @@ public enum EstadoOrden {
         this.estado = estado;
     }
 
+    @JsonValue
     public String getValor() {
         return estado;
     }
 
+    @JsonCreator
     public static EstadoOrden fromValor(String valor) {
         for (EstadoOrden estado : values()) {
             if (estado.getValor().equalsIgnoreCase(valor)) {
